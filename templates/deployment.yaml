@@ -1,0 +1,25 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: nginx
+  # these are replica set labels
+  labels:
+    purpose: helm-demo
+    project: roboshop 
+spec: 
+  replicas: {{ .Values.deployment.replicas }} # captil V is manditary 
+  selector:
+  # these are used to select pods
+    matchLabels:
+      purpose: helm-demo
+      project: roboshop
+  # pod definition
+  template:
+    metadata:
+      labels:
+        purpose: helm-demo
+        project: roboshop
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:{{ .Values.deployment.imageVersion }}
